@@ -1,21 +1,23 @@
 import { App } from 'vue';
 import {
-  ElAlert,
-  ElAside,
-  ElButton,
+  ElTabs,
+  ElTabPane,
   ElForm,
   ElFormItem,
   ElInput,
-  ElRadio
+  ElCheckbox,
+  ElLink,
+  ElButton
 } from 'element-plus';
 const components = [
-  ElAlert,
-  ElAside,
-  ElButton,
+  ElTabs,
+  ElTabPane,
   ElForm,
   ElFormItem,
   ElInput,
-  ElRadio
+  ElCheckbox,
+  ElLink,
+  ElButton
 ];
 export default function (app: App): void {
   for (const component of components) {

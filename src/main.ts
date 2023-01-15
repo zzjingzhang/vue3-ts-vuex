@@ -1,5 +1,7 @@
 import { createApp } from 'vue';
 import { globalRegister } from './global/index';
+import 'normalize.css';
+import './assets/css/index.less';
 import myRequest from './service/index';
 // 全局引入组件库
 // import ElementPlus from 'element-plus';
@@ -49,6 +51,6 @@ myRequest
     showLoading: false
   })
   .then((res) => {
-    console.log(res, '0000');
-    console.log(res.success);
+    // console.log(res, '0000');
+    // console.log(res.success);
   });

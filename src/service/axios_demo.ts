@@ -1,10 +1,8 @@
-console.log('----');
-
 import axios from 'axios'; // 导入的是axios的实例对象
 
 // 1.模拟get请求
 axios.get('http://123.207.32.32:8000/home/multidata').then((res) => {
-  console.log(res);
+  // console.log(res);
 });
 
 // 2.get请求，并且传入参数
@@ -37,7 +35,7 @@ axios.get('http://123.207.32.32:8000/home/multidata').then((res) => {
 new Promise<string>((resolve) => {
   resolve('123');
 }).then((res) => {
-  console.log(res);
+  // console.log(res);
 });
 
 // 4.axios的配置选项
@@ -55,7 +53,7 @@ axios
     headers: {}
   })
   .then((res) => {
-    console.log(res.data);
+    // console.log(res.data);
   });
 
 // 3.post请求
@@ -68,7 +66,7 @@ axios
     }
   })
   .then((res) => {
-    console.log(res.data, 'post');
+    // console.log(res.data, 'post');
   });
 
 // 5   axios.all 多个请求，一起返回
@@ -79,7 +77,7 @@ axios
     axios.post('/post', { data: { name: 'abc', age: 18 } })
   ])
   .then((res) => {
-    console.log(res);
+    // console.log(res);
   });
 
 // 6 axios 的拦截器
@@ -89,11 +87,11 @@ axios.interceptors.request.use(
   (config) => {
     // 想做的操作
     // 1.给请求添加token 2.isLoading动画
-    console.log('请求成功');
+    // console.log('请求成功');
     return config;
   },
   (err) => {
-    console.log('请求发生错误');
+    // console.log('请求发生错误');
     return err;
   }
 );
@@ -102,13 +100,13 @@ axios.interceptors.request.use(
 // fn2：数据响应失败会执行的函数
 axios.interceptors.response.use(
   (respon) => {
-    console.log(respon);
-    console.log('响应成功');
+    // console.log(respon);
+    // console.log('响应成功');
     return respon;
   },
   (err) => {
-    console.log('响应失败');
-    console.log(err);
+    // console.log('响应失败');
+    // console.log(err);
     return err;
   }
 );

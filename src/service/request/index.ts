@@ -35,7 +35,7 @@ class MYRequest {
     // 2.添加所有的实例都有的拦截器
     this.instance.interceptors.request.use(
       (config) => {
-        console.log('所有的实例都有的拦截器:请求成功');
+        // console.log('所有的实例都有的拦截器:请求成功');
         if (this.showLoading) {
           this.loading = ElLoading.service({
             lock: true,
@@ -52,12 +52,12 @@ class MYRequest {
     );
     this.instance.interceptors.response.use(
       (response) => {
-        console.log('所有的实例都有的拦截器:响应成功');
+        // console.log('所有的实例都有的拦截器:响应成功');
         // 移除loading
         this.loading?.close();
         const { data } = response;
         if (data.returnCode === '-1001') {
-          console.log('请求失败~，错误信息');
+          // console.log('请求失败~，错误信息');
         } else {
           return data;
         }
@@ -67,7 +67,7 @@ class MYRequest {
         // 判断不同的HttpErrorCode显示不同的错误信息
         // switch(err.response.status)
         if (err.response.status === 404) {
-          console.log('404错误');
+          // console.log('404错误');
         }
         return err;
       }
@@ -90,7 +90,7 @@ class MYRequest {
           if (config.interceptors?.responseInterceptor) {
             res = config.interceptors.responseInterceptor(res);
           }
-          console.log(res);
+          // console.log(res);
           // 2.将showloading设置为true，这样不会影响下一个请求
           this.showLoading = DEFAULT_LOADING;
 
