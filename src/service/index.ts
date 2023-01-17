@@ -1,6 +1,7 @@
 // service 统一出口
 import MYRequest from './request/index';
 import { BASE_URL, TIME_OUT } from './request/config';
+import localCache from '@/utils/cache';
 const myRequest = new MYRequest({
   baseURL: BASE_URL,
   timeout: TIME_OUT,
@@ -8,7 +9,7 @@ const myRequest = new MYRequest({
     requestInterceptor: (config) => {
       // console.log('请求拦截');
       // 携带token的拦截
-      const token = '';
+      const token = localCache.getCache('token');
       if (token && config.headers) {
         // config.headers.Authorization = `Bearer ${token}`; //这种方法需要将axios降低版本到1.1.3
         typeof config.headers.set === 'function' &&

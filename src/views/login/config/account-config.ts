@@ -9,7 +9,7 @@ export const rules = reactive<FormRules>({
       trigger: 'blur'
     }
   ],
-  pwd: [
+  password: [
     { required: true, message: '密码为必填内容~', trigger: 'blur' },
     {
       pattern: /^[a-zA-Z0-9]{3,}$/,

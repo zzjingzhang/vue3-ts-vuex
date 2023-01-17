@@ -1,24 +1,24 @@
 <template>
   <div class="login-panel">
     <h2 class="title">后台管理系统</h2>
-    <el-tabs type="border-card" class="demo-tabs" stretch>
-      <el-tab-pane>
+    <el-tabs type="border-card" class="demo-tabs" stretch v-model="currentTab">
+      <el-tab-pane name="account">
         <template #label>
           <span class="custom-tabs-label">
             <user-filled class="icon-style" />
             <span>账号登录</span>
           </span>
         </template>
-        <login-account ref="loginAccountRef" />
+        <login-account ref="accountRef" />
       </el-tab-pane>
-      <el-tab-pane>
+      <el-tab-pane name="phone">
         <template #label>
           <span class="custom-tabs-label">
             <iphone class="icon-style" />
             <span>手机登录</span>
           </span>
         </template>
-        <login-phone />
+        <login-phone ref="phoneRef" />
       </el-tab-pane>
     </el-tabs>
     <div class="account-control">
@@ -45,17 +45,30 @@ export default defineComponent({
     LoginPhone
   },
   setup() {
+    // 定义属性
     const isKeepPwd = ref(true);
-    const loginAccountRef = ref<InstanceType<typeof LoginAccount>>();
+    const accountRef = ref<InstanceType<typeof LoginAccount>>();
+    const phoneRef = ref<InstanceType<typeof LoginPhone>>();
+    const currentTab = ref<string>('account');
+
+    // 定义方法
     const signInHandler = () => {
-      console.log('立即登录');
-      console.log(loginAccountRef.value);
-      loginAccountRef.value?.loginAction(loginAccountRef.value.ruleFormRef);
+      // 账号登录
+      if (currentTab.value === 'account') {
+        accountRef.value?.loginAction(
+          accountRef.value.ruleFormRef,
+          isKeepPwd.value
+        );
+      } else {
+        console.log('手机登录');
+      }
     };
     return {
       isKeepPwd,
-      signInHandler,
-      loginAccountRef
+      accountRef,
+      phoneRef,
+      currentTab,
+      signInHandler
     };
   }
 });

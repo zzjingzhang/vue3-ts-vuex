@@ -9,6 +9,7 @@ import 'element-plus/dist/index.css'; //引入样式
 import App from './App.vue';
 import router from './router';
 import store from './store';
+import { setupStore } from './store';
 
 // import './service/axios_demo';
 
@@ -21,6 +22,9 @@ app.use(globalRegister);
 app.use(store);
 app.use(router);
 // app.use(ElementPlus);
+
+// 防止用户刷新页面，store里面丢失登录信息
+setupStore();
 app.mount('#app');
 
 // console.log(process.env);
@@ -39,18 +43,18 @@ app.mount('#app');
 //   }
 // });
 
-interface DataType {
-  data: any;
-  returnCode: string;
-  success: boolean;
-}
-myRequest
-  .request<DataType>({
-    url: '/home/multidata',
-    method: 'GET',
-    showLoading: false
-  })
-  .then((res) => {
-    // console.log(res, '0000');
-    // console.log(res.success);
-  });
+// interface DataType {
+//   data: any;
+//   returnCode: string;
+//   success: boolean;
+// }
+// myRequest
+//   .request<DataType>({
+//     url: '/home/multidata',
+//     method: 'GET',
+//     showLoading: false
+//   })
+//   .then((res) => {
+//     // console.log(res, '0000');
+//     // console.log(res.success);
+//   });
