@@ -20,11 +20,11 @@ const app = createApp(App);
 // 写法二
 app.use(globalRegister);
 app.use(store);
+// 防止用户刷新页面，store里面丢失登录信息
+setupStore();
 app.use(router);
 // app.use(ElementPlus);
 
-// 防止用户刷新页面，store里面丢失登录信息
-setupStore();
 app.mount('#app');
 
 // console.log(process.env);

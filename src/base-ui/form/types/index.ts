@@ -10,6 +10,7 @@ export interface IFormItem {
   // 针对特殊的属性
   otherOptions?: any;
   itemStyle?: string;
+  field: string;
 }
 
 export interface IForm {

@@ -1,9 +1,10 @@
+import { IBreadcrumbsType } from '@/base-ui/breadcrumb';
 import { RouteRecordRaw } from 'vue-router';
+let firstMenu: any = null;
+
 export function mapMenusToRoutes(userMenus: any[]): RouteRecordRaw[] {
   const routes: RouteRecordRaw[] = [];
-
   // 1.先去加载默认所有的routes
-
   const allRoutes: RouteRecordRaw[] = [];
   const routeFiles = require.context('../router/main', true, /\.ts/); // 第二个参数表示是否递归查找
   routeFiles.keys().forEach((key) => {
@@ -18,6 +19,9 @@ export function mapMenusToRoutes(userMenus: any[]): RouteRecordRaw[] {
         if (route) {
           routes.push(route);
         }
+        if (!firstMenu) {
+          firstMenu = menu;
+        }
       } else {
         _recurseGetRoute(menu.children);
       }
@@ -26,3 +30,34 @@ export function mapMenusToRoutes(userMenus: any[]): RouteRecordRaw[] {
   _recurseGetRoute(userMenus);
   return routes;
 }
+
+export function pathMapBreadcrums(userMenus: any[], currentPath: string) {
+  const breadcrumbs: IBreadcrumbsType[] = [];
+  pathMapToMenu(userMenus, currentPath, breadcrumbs);
+  return breadcrumbs;
+}
+
+// 解决刷新菜单高亮问题
+export function pathMapToMenu(
+  userMenus: any[],
+  currentPath: string,
+  breadcrumbs?: IBreadcrumbsType[]
+): any {
+  for (const menu of userMenus) {
+    if (menu.type === 1) {
+      const findMenu = pathMapToMenu(menu.children ?? [], currentPath);
+      if (findMenu) {
+        // 处理面包屑
+        // 一级菜单
+        breadcrumbs?.push({ name: menu.name });
+        // 二级菜单
+        breadcrumbs?.push({ name: findMenu.name });
+        return findMenu;
+      }
+    } else if (menu.type === 2 && menu.url === currentPath) {
+      return menu;
+    }
+  }
+}
+
+export { firstMenu };
