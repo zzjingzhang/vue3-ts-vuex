@@ -1,13 +1,26 @@
 <template>
-  <div>用户管理</div>
+  <div class="user">
+    <div class="search">
+      <my-form v-bind="searchFormConfig" />
+    </div>
+    <div class="content"></div>
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import MyForm from '@/base-ui/form';
+import { searchFormConfig } from './config/search.config';
 
 export default defineComponent({
+  name: 'user',
+  components: {
+    MyForm
+  },
   setup() {
-    return {};
+    return {
+      searchFormConfig
+    };
   }
 });
 </script>

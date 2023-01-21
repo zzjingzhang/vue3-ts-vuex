@@ -3,8 +3,6 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue';
 import {
   ElTabs,
   ElTabPane,
-  ElForm,
-  ElFormItem,
   ElInput,
   ElCheckbox,
   ElLink,
@@ -17,13 +15,22 @@ import {
   ElSubMenu,
   ElIcon,
   ElMenuItem,
-  ElMenuItemGroup
+  ElMenuItemGroup,
+  ElDropdown,
+  ElDropdownMenu,
+  ElDropdownItem,
+  ElAvatar,
+  ElForm,
+  ElFormItem,
+  ElRow,
+  ElCol,
+  ElSelect,
+  ElOption,
+  ElDatePicker
 } from 'element-plus';
 const components = [
   ElTabs,
   ElTabPane,
-  ElForm,
-  ElFormItem,
   ElInput,
   ElCheckbox,
   ElLink,
@@ -36,7 +43,18 @@ const components = [
   ElSubMenu,
   ElIcon,
   ElMenuItem,
-  ElMenuItemGroup
+  ElMenuItemGroup,
+  ElDropdown,
+  ElDropdownMenu,
+  ElDropdownItem,
+  ElAvatar,
+  ElForm,
+  ElFormItem,
+  ElRow,
+  ElCol,
+  ElSelect,
+  ElOption,
+  ElDatePicker
 ];
 // 注册组件
 export function registerElement(app: App): void {
