@@ -2,7 +2,7 @@ import { createApp } from 'vue';
 import { globalRegister } from './global/index';
 import 'normalize.css';
 import './assets/css/index.less';
-import myRequest from './service/index';
+// import myRequest from './service/index';
 // 全局引入组件库
 // import ElementPlus from 'element-plus';
 import 'element-plus/dist/index.css'; //引入样式

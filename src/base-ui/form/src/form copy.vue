@@ -19,8 +19,7 @@
                   v-bind="item.otherOptions"
                   :placeholder="item.placeholder"
                   :show-password="item.type === 'password'"
-                  :model-value="modelValue[`${item.field}`]"
-                  @update:modelValue="handleValueChange($event, item.field)"
+                  v-model="formData[`${item.field}`]"
                 />
               </template>
               <template v-else-if="item.type === 'select'">
@@ -28,8 +27,7 @@
                   v-bind="item.otherOptions"
                   :placeholder="item.placeholder"
                   style="width: 100%"
-                  :model-value="modelValue[`${item.field}`]"
-                  @update:modelValue="handleValueChange($event, item.field)"
+                  v-model="formData[`${item.field}`]"
                 >
                   <el-option
                     v-for="option in item.options"
@@ -44,8 +42,7 @@
                 <el-date-picker
                   v-bind="item.otherOptions"
                   style="width: 100%"
-                  :model-value="modelValue[`${item.field}`]"
-                  @update:modelValue="handleValueChange($event, item.field)"
+                  v-model="formData[`${item.field}`]"
                 ></el-date-picker>
               </template> </el-form-item
           ></el-col>
@@ -93,11 +90,15 @@ export default defineComponent({
   },
   emits: ['update:modelValue'],
   setup(props, { emit }) {
-    const handleValueChange = (value: any, field: string) => {
-      emit('update:modelValue', { ...props.modelValue, [field]: value });
-    };
+    const formData: any = ref({
+      ...props.modelValue
+    });
+
+    watch(formData, (newValue) => emit('update:modelValue', newValue), {
+      deep: true
+    });
     return {
-      handleValueChange
+      formData
     };
   }
 });

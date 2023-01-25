@@ -1,103 +1,51 @@
 <template>
   <div class="user">
     <div class="search">
-      <page-search :searchFormConfig="searchFormConfig" />
+      <page-search
+        :searchFormConfig="searchFormConfig"
+        @resetBtnClick="handleResetClick"
+        @queryBtnClick="handleQueryClick"
+      />
     </div>
     <div class="content">
-      <my-table :tableData="userList" :propList="propList">
-        <template #enable="scope">
-          <el-button type="primary" plain>{{
-            scope.row.enable ? '启用' : '禁用'
-          }}</el-button>
-        </template>
-        <template #createAt="scope">
-          <strong>{{ scope.row.createAt }}</strong>
-        </template>
-      </my-table>
+      <page-content
+        ref="pageContentRef"
+        :contentTableConfig="contentTableConfig"
+        page-name="users"
+        btn-name="新建用户"
+      />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
-import { useStore } from '@/store';
-import PageSearch from '@/components/page-search';
-import MyTable from '@/base-ui/table';
-import { searchFormConfig } from './config/search.config';
+import { defineComponent, ref } from 'vue';
 
+import PageSearch from '@/components/page-search';
+import PageContent from '@/components/page-content';
+
+import { searchFormConfig } from './config/search.config';
+import { contentTableConfig } from './config/content.config';
+
+import { usePageSearch } from '@/hooks/usePageSearch';
 export default defineComponent({
   name: 'user',
   components: {
     PageSearch,
-    MyTable
+    PageContent
   },
   setup() {
-    const store = useStore();
-
-    store.dispatch('system/getPageListAction', {
-      pageUrl: 'users/list',
-      queryInfo: {
-        offset: 0,
-        size: 10
-      }
-    });
-
-    const userList = computed(() => store.state.system.useList);
-    const userCount = computed(() => store.state.system.userCount);
-    const propList = [
-      { prop: 'name', label: '用户名', minWidth: '100', slotName: 'name' },
-      {
-        prop: 'realname',
-        label: '真是姓名',
-        minWidth: '100',
-        slotName: 'realname'
-      },
-      { prop: 'enable', label: '状态', minWidth: '100', slotName: 'enable' },
-      {
-        prop: 'cellphone',
-        label: '电话号码',
-        minWidth: '100',
-        slotName: 'cellphone'
-      },
-      {
-        prop: 'createAt',
-        label: '创建时间',
-        minWidth: '250',
-        slotName: 'createAt'
-      },
-      {
-        prop: 'updateAt',
-        label: '更新时间',
-        minWidth: '250',
-        slotName: 'updateAt'
-      }
-
-      // {
-      //   id: '',
-      //   name: '',
-      //   realname: '',
-      //   enable: 'name',
-      //   cellphone: '1233',
-      //   departmentId: '',
-      //   roleId: '',
-      //   createAt: '',
-      //   updateAt: ''
-      // },
-    ];
-
+    const [pageContentRef, handleResetClick, handleQueryClick] =
+      usePageSearch();
     return {
       searchFormConfig,
-      userList,
-      userCount,
-      propList
+      contentTableConfig,
+      handleResetClick,
+      handleQueryClick,
+      pageContentRef
     };
   }
 });
 </script>
 
-<style scoped>
-.content {
-  padding: 20px;
-  border-top: 20px solid #f5f5f5;
-}
-</style>
+<style scoped></style>

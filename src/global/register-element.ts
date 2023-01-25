@@ -30,7 +30,10 @@ import {
   ElBreadcrumb,
   ElBreadcrumbItem,
   ElTable,
-  ElTableColumn
+  ElTableColumn,
+  ElPagination,
+  ElConfigProvider,
+  ElImage
 } from 'element-plus';
 const components = [
   ElTabs,
@@ -62,7 +65,10 @@ const components = [
   ElBreadcrumb,
   ElBreadcrumbItem,
   ElTable,
-  ElTableColumn
+  ElTableColumn,
+  ElPagination,
+  ElConfigProvider,
+  ElImage
 ];
 // 注册组件
 export function registerElement(app: App): void {
