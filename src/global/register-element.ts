@@ -33,7 +33,9 @@ import {
   ElTableColumn,
   ElPagination,
   ElConfigProvider,
-  ElImage
+  ElImage,
+  ElDialog,
+  ElTree
 } from 'element-plus';
 const components = [
   ElTabs,
@@ -68,7 +70,9 @@ const components = [
   ElTableColumn,
   ElPagination,
   ElConfigProvider,
-  ElImage
+  ElImage,
+  ElDialog,
+  ElTree
 ];
 // 注册组件
 export function registerElement(app: App): void {

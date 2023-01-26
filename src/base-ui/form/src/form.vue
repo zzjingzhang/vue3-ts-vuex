@@ -8,6 +8,7 @@
         <template v-for="item in formItems" :key="item.label">
           <el-col v-bind="colLayout">
             <el-form-item
+              v-if="!item.isHidden"
               :label="item.label"
               :rules="item.rules"
               :style="itemStyle"
@@ -59,7 +60,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, watch, computed } from 'vue';
+import { defineComponent, PropType } from 'vue';
 import { IFormItem } from '../types';
 
 export default defineComponent({
@@ -79,6 +80,10 @@ export default defineComponent({
     itemStyle: {
       type: Object,
       default: () => ({ padding: '10px 40px' })
+    },
+    isHidden: {
+      type: Boolean,
+      default: false
     },
     colLayout: {
       type: Object,

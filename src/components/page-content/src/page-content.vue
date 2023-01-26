@@ -8,9 +8,13 @@
     >
       <!-- header中的插槽 -->
       <template #headerHandler>
-        <el-button v-if="btnName && isCreate" type="primary" size="small">{{
-          btnName
-        }}</el-button>
+        <el-button
+          v-if="btnName && isCreate"
+          type="primary"
+          size="small"
+          @click="addClick"
+          >{{ btnName }}</el-button
+        >
         <el-button :icon="RefreshRight"></el-button>
       </template>
       <!-- 列中的插槽 -->
@@ -25,15 +29,27 @@
         >
       </template>
       <template #createAt="scope">
-        <span>{{ $filters.formatTime(scope.row.createAt) }}</span>
+        <span>{{ filters.formatTime(scope.row.createAt) }}</span>
       </template>
       <template #updateAt="scope">
-        <span>{{ $filters.formatTime(scope.row.updateAt) }}</span>
+        <span>{{ filters.formatTime(scope.row.updateAt) }}</span>
       </template>
-      <template #handler>
+      <template #handler="scope">
         <div class="handler">
-          <el-button v-if="isUpdate" :icon="Edit" link>编辑</el-button>
-          <el-button v-if="isDelete" :icon="Delete" link>删除</el-button>
+          <el-button
+            v-if="isUpdate"
+            :icon="Edit"
+            link
+            @click="editClick(scope.row)"
+            >编辑</el-button
+          >
+          <el-button
+            v-if="isDelete"
+            :icon="Delete"
+            link
+            @click="handleDeleteClick(scope.row)"
+            >删除</el-button
+          >
         </div>
       </template>
 
@@ -52,7 +68,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, watch } from 'vue';
+import { defineComponent, computed, ref, watch, getCurrentInstance } from 'vue';
 import { useStore } from '@/store';
 import MyTable from '@/base-ui/table';
 import { Edit, RefreshRight, Delete } from '@element-plus/icons-vue';
@@ -76,7 +92,8 @@ export default defineComponent({
       dafault: ''
     }
   },
-  setup(props) {
+  emits: ['newBtnClikc', 'editBtnClick'],
+  setup(props, { emit }) {
     const store = useStore();
 
     // 获取操作的权限
@@ -84,7 +101,6 @@ export default defineComponent({
     const isUpdate = usePermission(props.pageName, 'update');
     const isQuery = usePermission(props.pageName, 'query');
     const isDelete = usePermission(props.pageName, 'delete');
-    console.log(isDelete);
     // 1.双向绑定pageInfo
     const pageInfo = ref({ currentPage: 1, pageSize: 10 });
     watch(pageInfo, () => getPageData());
@@ -120,18 +136,42 @@ export default defineComponent({
         return true;
       }
     );
+
+    // 格式化时间
+    const instance = getCurrentInstance();
+    const filters = instance?.appContext?.config?.globalProperties.$filters;
+
+    // 5.删除/编辑/新建操作
+    const handleDeleteClick = (row: any) => {
+      store.dispatch('system/deletePageDataAction', {
+        pageName: props.pageName,
+        id: row.id
+      });
+    };
+    // 新增
+    const addClick = () => {
+      emit('newBtnClikc');
+    };
+    // 编辑
+    const editClick = (row: any) => {
+      emit('editBtnClick', row);
+    };
     return {
       Edit,
       RefreshRight,
       Delete,
       dataList,
+      filters,
       getPageData,
       totalCount,
       pageInfo,
       otherPropSlots,
       isCreate,
       isUpdate,
-      isDelete
+      isDelete,
+      handleDeleteClick,
+      addClick,
+      editClick
     };
   }
 });

@@ -11,6 +11,7 @@ export interface IFormItem {
   otherOptions?: any;
   itemStyle?: string;
   field: string;
+  isHidden?: boolean;
 }
 
 export interface IForm {

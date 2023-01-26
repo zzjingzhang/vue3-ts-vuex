@@ -78,7 +78,7 @@ export default defineComponent({
     },
     propList: {
       type: Object,
-      required: true
+      default: () => ({})
     },
     totalCount: {
       type: Number,
