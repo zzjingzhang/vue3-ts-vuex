@@ -70,7 +70,6 @@ export default defineComponent({
       console.log('handleConfirmClick');
       // 有值  编辑
       if (Object.keys(props.defaultInfo).length) {
-        console.log('编辑');
         store.dispatch('system/editPageDataAction', {
           pageName: props.pageName,
           id: props.defaultInfo.id,
@@ -78,7 +77,6 @@ export default defineComponent({
         });
       } else {
         // 新建
-        console.log('新增');
         store.dispatch('system/createPageDataAction', {
           pageName: props.pageName,
           newData: { ...formData.value, ...props.otherInfo }

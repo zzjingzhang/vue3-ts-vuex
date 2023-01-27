@@ -35,7 +35,8 @@ import {
   ElConfigProvider,
   ElImage,
   ElDialog,
-  ElTree
+  ElTree,
+  ElCard
 } from 'element-plus';
 const components = [
   ElTabs,
@@ -72,7 +73,8 @@ const components = [
   ElConfigProvider,
   ElImage,
   ElDialog,
-  ElTree
+  ElTree,
+  ElCard
 ];
 // 注册组件
 export function registerElement(app: App): void {
